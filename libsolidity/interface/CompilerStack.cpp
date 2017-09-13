@@ -252,6 +252,15 @@ bool CompilerStack::parseAndAnalyze()
 	return parse() && analyze();
 }
 
+bool CompilerStack::isRequestedContract(ContractDefinition const& _contract) const
+{
+	if (m_requestedContractNames.empty())
+		return true;
+	if (m_requestedContractNames.count(contract->fullyQualifiedName()) || m_requestedContractNames.count(contract->name()))
+		return true;
+	return false
+}
+
 bool CompilerStack::compile()
 {
 	if (m_stackState < AnalysisSuccessful)
@@ -262,7 +271,8 @@ bool CompilerStack::compile()
 	for (Source const* source: m_sourceOrder)
 		for (ASTPointer<ASTNode> const& node: source->ast->nodes())
 			if (auto contract = dynamic_cast<ContractDefinition const*>(node.get()))
-				compileContract(*contract, compiledContracts);
+				if (isRequestedContract(contract))
+					compileContract(*contract, compiledContracts);
 	this->link();
 	m_stackState = CompilationSuccessful;
 	return true;
