@@ -6976,6 +6976,91 @@ BOOST_AUTO_TEST_CASE(address_overload_resolution)
 	CHECK_SUCCESS(text);
 }
 
+BOOST_AUTO_TEST_CASE(no_address_members_on_contract)
+{
+	char const* text = R"(
+		pragma experimental "v0.5.0";
+		contract C {
+			function f() {
+				this.balance;
+			}
+		}
+	)";
+	CHECK_ERROR(text, TypeError, "");
+	text = R"(
+		pragma experimental "v0.5.0";
+		contract C {
+			function f() {
+				this.transfer;
+			}
+		}
+	)";
+	CHECK_ERROR(text, TypeError, "");
+	text = R"(
+		pragma experimental "v0.5.0";
+		contract C {
+			function f() {
+				this.send;
+			}
+		}
+	)";
+	CHECK_ERROR(text, TypeError, "");
+	text = R"(
+		pragma experimental "v0.5.0";
+		contract C {
+			function f() {
+				this.call;
+			}
+		}
+	)";
+	CHECK_ERROR(text, TypeError, "");
+	text = R"(
+		pragma experimental "v0.5.0";
+		contract C {
+			function f() {
+				this.callcode;
+			}
+		}
+	)";
+	CHECK_ERROR(text, TypeError, "");
+	text = R"(
+		pragma experimental "v0.5.0";
+		contract C {
+			function f() {
+				this.delegatecall;
+			}
+		}
+	)";
+	CHECK_ERROR(text, TypeError, "");
+	text = R"(
+		pragma experimental "v0.5.0";
+		contract C {
+			function f() {
+				this.call;
+			}
+		}
+	)";
+	CHECK_ERROR(text, TypeError, "");
+	text = R"(
+		pragma experimental "v0.5.0";
+		contract C {
+			function f() {
+				this.call;
+			}
+		}
+	)";
+	CHECK_ERROR(text, TypeError, "");
+	text = R"(
+		pragma experimental "v0.5.0";
+		contract C {
+			function f() {
+				this.call;
+			}
+		}
+	)";
+	CHECK_ERROR(text, TypeError, "");
+}
+
 BOOST_AUTO_TEST_SUITE_END()
 
 }

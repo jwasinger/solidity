@@ -107,6 +107,9 @@ Operators:
 
 * ``<=``, ``<``, ``==``, ``!=``, ``>=`` and ``>``
 
+.. note::
+    Starting with version 0.5.0 contracts do not derive from the address type.
+
 .. _members-of-addresses:
 
 Members of Addresses

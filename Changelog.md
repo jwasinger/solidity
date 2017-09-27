@@ -2,6 +2,7 @@
 
 Features:
  * Parser: Better error message for unexpected trailing comma in parameter lists.
+ * Type Checker: Do not add members of ``address`` to contracts as experimental 0.5.0 feature.
 
 Bugfixes:
  * Parser: Fix source location of VariableDeclarationStatement.

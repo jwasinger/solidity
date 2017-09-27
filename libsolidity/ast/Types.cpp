@@ -1616,7 +1616,7 @@ string ContractType::canonicalName() const
 	return m_contract.annotation().canonicalName;
 }
 
-MemberList::MemberMap ContractType::nativeMembers(ContractDefinition const*) const
+MemberList::MemberMap ContractType::nativeMembers(ContractDefinition const* _contract) const
 {
 	MemberList::MemberMap members;
 	if (m_super)
@@ -1660,7 +1660,9 @@ MemberList::MemberMap ContractType::nativeMembers(ContractDefinition const*) con
 				&it.second->declaration()
 			));
 	}
-	addNonConflictingAddressMembers(members);
+	// In 0.5.0 address members are not populated into the contract.
+	if (!_contract->sourceUnit().annotation().experimentalFeatures.count(ExperimentalFeature::V050))
+		addNonConflictingAddressMembers(members);
 	return members;
 }
 
