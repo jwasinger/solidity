@@ -256,9 +256,9 @@ bool CompilerStack::isRequestedContract(ContractDefinition const& _contract) con
 {
 	if (m_requestedContractNames.empty())
 		return true;
-	if (m_requestedContractNames.count(contract->fullyQualifiedName()) || m_requestedContractNames.count(contract->name()))
+	if (m_requestedContractNames.count(_contract.fullyQualifiedName()) || m_requestedContractNames.count(_contract.name()))
 		return true;
-	return false
+	return false;
 }
 
 bool CompilerStack::compile()
@@ -271,7 +271,7 @@ bool CompilerStack::compile()
 	for (Source const* source: m_sourceOrder)
 		for (ASTPointer<ASTNode> const& node: source->ast->nodes())
 			if (auto contract = dynamic_cast<ContractDefinition const*>(node.get()))
-				if (isRequestedContract(contract))
+				if (isRequestedContract(*contract))
 					compileContract(*contract, compiledContracts);
 	this->link();
 	m_stackState = CompilationSuccessful;

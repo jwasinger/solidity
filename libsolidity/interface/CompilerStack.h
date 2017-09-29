@@ -267,7 +267,7 @@ private:
 	std::string sanitizePath(std::string const& _path) const { return boost::filesystem::path(_path).generic_string(); }
 
 	/// @returns true if the contract is requested to be compiled.
-	bool isRequestedContract(ContractDefiniton const& _contract) const;
+	bool isRequestedContract(ContractDefinition const& _contract) const;
 
 	/// Compile a single contract and put the result in @a _compiledContracts.
 	void compileContract(
